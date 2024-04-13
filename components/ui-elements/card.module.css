@@ -1,0 +1,5 @@
+.card {
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: all 0.5s ease;
+}

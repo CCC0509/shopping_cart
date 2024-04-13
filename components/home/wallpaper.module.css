@@ -1,0 +1,62 @@
+.wallpaper_container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/image/wallpaper.jpg");
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.slogan_container {
+  width: 100vw;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slogan_1 {
+  color: var(--main-color);
+  background-color: var(--match-color);
+  animation: slide_in 1s linear forwards;
+  border-radius: 1rem;
+  padding-inline: 0.5rem;
+}
+
+.slogan_2 {
+  color: var(--match-color);
+  background-color: var(--main-color);
+  font-size: 5rem;
+  animation: appear 1s linear forwards;
+  animation-delay: 1s;
+  opacity: 0;
+  border-radius: 1rem;
+  align-self: self-end;
+}
+
+@keyframes slide_in {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateY(-5rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
