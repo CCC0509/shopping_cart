@@ -58,12 +58,12 @@ const ProductsList = (props) => {
 
   const scrollReset = () => {
     const { scrollLeft, offsetWidth, scrollWidth } = dragDiv.current;
-    if (scrollWidth === 1419) {
-      cardGap = 12.5;
+    if (scrollWidth === 1416) {
+      cardGap = 12;
     }
 
-    if (scrollWidth === 1065) {
-      cardGap = 9.5;
+    if (scrollWidth === 1062) {
+      cardGap = 9;
     }
 
     const moveWidth =
@@ -89,7 +89,7 @@ const ProductsList = (props) => {
           scrollPosition +
             Math.ceil((scrollLeft - scrollPosition) / moveWidth) * moveWidth,
           5,
-          0.5
+          1
         );
         dragDiv.current.scrollLeft += moveRange;
         setClickAble(true);
@@ -123,7 +123,7 @@ const ProductsList = (props) => {
           scrollPosition +
             Math.floor((scrollLeft - scrollPosition) / moveWidth) * moveWidth,
           5,
-          0
+          1
         );
         dragDiv.current.scrollLeft -= moveRange;
         setClickAble(true);
@@ -151,7 +151,7 @@ const ProductsList = (props) => {
           scrollPosition -
             Math.ceil((scrollLeft - scrollPosition) / moveWidth) * moveWidth,
           5,
-          0.5
+          1
         );
         dragDiv.current.scrollLeft += moveRange;
         setClickAble(true);
@@ -180,7 +180,7 @@ const ProductsList = (props) => {
           scrollPosition +
             Math.floor((scrollLeft - scrollPosition) / moveWidth) * moveWidth,
           5,
-          0
+          1
         );
         dragDiv.current.scrollLeft -= moveRange;
         setClickAble(true);
@@ -205,12 +205,12 @@ const ProductsList = (props) => {
   const dragListhandler = (e) => {
     e.preventDefault();
     const { scrollLeft, scrollWidth } = dragDiv.current;
-    if (scrollWidth === 1419) {
-      cardGap = 12.5;
+    if (scrollWidth === 1416) {
+      cardGap = 12;
     }
 
-    if (scrollWidth === 1065) {
-      cardGap = 9.5;
+    if (scrollWidth === 1062) {
+      cardGap = 9;
     }
     const moveWidth =
       (scrollWidth - cardGap * (dataLength - 1)) / dataLength + cardGap;
@@ -265,13 +265,13 @@ const ProductsList = (props) => {
 
   const nextProduct = () => {
     const { scrollLeft, scrollWidth, offsetWidth } = dragDiv.current;
-    if (scrollWidth === 1419) {
-      cardGap = 12.5;
-    }
-    if (scrollWidth === 1065) {
-      cardGap = 9.5;
+    if (scrollWidth === 1416) {
+      cardGap = 12;
     }
 
+    if (scrollWidth === 1062) {
+      cardGap = 9;
+    }
     const moveWidth =
       (scrollWidth - cardGap * (dataLength - 1)) / dataLength + cardGap;
 
@@ -290,9 +290,10 @@ const ProductsList = (props) => {
         scrollLeft,
         scrollPosition + moveWidth,
         5,
-        0.5
+        1
       );
       dragDiv.current.scrollLeft += moveRange;
+
       setClickAble(true);
       if (dragDiv.current.scrollLeft === scrollPosition + moveWidth) {
         setScrollPosition(dragDiv.current.scrollLeft);
@@ -305,12 +306,12 @@ const ProductsList = (props) => {
 
   const prevProduct = () => {
     const { scrollLeft, scrollWidth } = dragDiv.current;
-    if (scrollWidth === 1419) {
-      cardGap = 12.5;
+    if (scrollWidth === 1416) {
+      cardGap = 12;
     }
 
-    if (scrollWidth === 1065) {
-      cardGap = 9.5;
+    if (scrollWidth === 1062) {
+      cardGap = 9;
     }
 
     const moveWidth =
@@ -329,7 +330,7 @@ const ProductsList = (props) => {
         scrollLeft,
         scrollPosition - moveWidth,
         5,
-        0
+        0.5
       );
       dragDiv.current.scrollLeft -= moveRange;
       setClickAble(true);

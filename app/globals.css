@@ -4,11 +4,11 @@
   --disabled-color: rgb(193, 216, 221);
   --cancel-color: rgb(205, 85, 85);
   --drag-list-max-width: 111rem;
-  --drag-list-mid-width: calc(84rem + 75px);
-  --drag-list-min-width: calc(63rem + 57px);
+  --drag-list-mid-width: calc(84rem + 72px);
+  --drag-list-min-width: calc(63rem + 54px);
   --drag-container-max-width: 63rem;
-  --drag-container-mid-width: calc(60rem + 50px);
-  --drag-container-min-width: calc(63rem + 57px);
+  --drag-container-mid-width: calc(60rem + 48px);
+  --drag-container-min-width: calc(63rem + 54px);
 }
 
 * {
