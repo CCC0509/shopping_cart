@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import ProductsItem from "./product-item";
 import { useFn } from "@/context/cart-data-context";
 import { LeftArrow, RightArrow } from "../ui-elements/arrow";
+import allData from "@/public/data";
 
 import style from "./product-list.module.css";
 
@@ -19,8 +20,9 @@ const ProductsList = (props) => {
   const [clickAble, setClickAble] = useState(false);
   const { scale } = useFn();
   const dragDiv = useRef();
+  const { data } = allData;
   let cardGap = 16;
-  const dataLength = props.data.length;
+  const dataLength = data.length;
 
   useEffect(() => {
     if (!dragDiv.current) {
@@ -363,7 +365,7 @@ const ProductsList = (props) => {
           onMouseUp={mouseUpHandler}
           onMouseLeave={mouseLeaveHandler}
         >
-          {props.data.map((d) => (
+          {data.map((d) => (
             <ProductsItem
               key={d.id}
               name={d.name}

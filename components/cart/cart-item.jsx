@@ -11,15 +11,15 @@ import style from "./cart-item.module.css";
 const CartItem = (props) => {
   const [productCount, setProductCount] = useState(1);
   const [productIsMin, setProductIsMin] = useState(true);
-
   const { cart } = allData;
 
   const index = cart.findIndex((ele) => ele.name === props.name);
 
   useEffect(() => {
+    if (cart.length === 0) return;
     cart[index].count = productCount;
     props.setCartData([...cart]);
-  }, [productCount]);
+  }, [productCount, cart]);
 
   const plusHandler = () => {
     setProductCount((prev) => prev + 1);

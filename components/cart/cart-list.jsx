@@ -6,7 +6,6 @@ import style from "./cart-list.module.css";
 
 const CartList = (props) => {
   const { cartData, setCartData } = useFn();
-
   return (
     <div>
       <ul className={style.cart_item_container}>

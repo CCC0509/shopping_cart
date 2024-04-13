@@ -4,20 +4,22 @@ import Button from "../ui-elements/button";
 import Card from "../ui-elements/card";
 
 import { useFn } from "@/context/cart-data-context";
+import allData from "@/public/data";
 
 import style from "./product-item.module.css";
 
 const ProductsItem = (props) => {
   const [addToCart, setAddTOCart] = useState(false);
   const { cartData, setCartData } = useFn();
+  const { cart } = allData;
 
   const addToCartHandler = () => {
-    props.cart.push(props.data);
-    setCartData([...props.cart]);
+    cart.push(props.data);
+    setCartData([...cart]);
   };
 
   useEffect(() => {
-    if (props.cart.some((ele) => ele.id === props.data.id)) {
+    if (cart.some((ele) => ele.id === props.data.id)) {
       return setAddTOCart(true);
     }
     setAddTOCart(false);
