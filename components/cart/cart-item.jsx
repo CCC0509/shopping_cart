@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import Card from "../ui-elements/card";
 import Button from "../ui-elements/button";
+import { useFn } from "@/context/cart-data-context";
 
 import allData from "@/public/data";
 
@@ -11,14 +12,16 @@ import style from "./cart-item.module.css";
 const CartItem = (props) => {
   const [productCount, setProductCount] = useState(1);
   const [productIsMin, setProductIsMin] = useState(true);
+  const [removeItem, setRemoveItem] = useState(false);
   const { cart } = allData;
+  const { removeAllCart, cartData, setCartData } = useFn();
 
   const index = cart.findIndex((ele) => ele.name === props.name);
 
   useEffect(() => {
     if (cart.length === 0) return;
     cart[index].count = productCount;
-    props.setCartData([...cart]);
+    setCartData([...cart]);
   }, [productCount, cart]);
 
   const plusHandler = () => {
@@ -41,21 +44,41 @@ const CartItem = (props) => {
   };
 
   const removeCartItemHandler = () => {
-    if (index !== -1) {
-      cart.splice(index, 1);
-    }
-    const removedData = props.cartData.filter((ele) => ele.name !== props.name);
-    props.setCartData((prev) => [...removedData]);
+    setRemoveItem(true);
+    setTimeout(() => {
+      if (index !== -1) {
+        cart.splice(index, 1);
+      }
+      const removedData = cartData.filter((ele) => ele.name !== props.name);
+      setCartData((prev) => [...removedData]);
+    }, 500);
   };
 
   return (
     <li>
-      <Card onMouseDown={selectHandler} className={style.cart_item_container}>
+      <Card
+        onMouseDown={selectHandler}
+        className={`${style.cart_item_container} ${
+          removeItem || removeAllCart ? style.slide_out : ""
+        } ${props.event === "草莓季" ? style.event_item_container : ""}`}
+      >
+        {props.event === "草莓季" ? (
+          <p className={style.event_text}>{props.event}</p>
+        ) : null}
         <div className={style.cart_item_image_container}>
-          <Image src={props.image} alt={props.name} fill />
+          <Image
+            src={props.image}
+            alt={props.name}
+            fill
+            sizes="(max-width:5rem)"
+          />
         </div>
         <div className={style.cart_item_text_container}>
-          <p className={`${style.cart_item_title} ${style.product}`}>
+          <p
+            className={`${style.cart_item_title} ${style.product} ${
+              props.event === "草莓季" ? style.event_title : ""
+            }`}
+          >
             商品名稱
           </p>
           <h3 style={{ fontSize: `${props.name.length > 4 ? "80%" : ""}` }}>
@@ -63,13 +86,21 @@ const CartItem = (props) => {
           </h3>
         </div>
         <div className={style.cart_item_text_container}>
-          <p className={`${style.cart_item_title} ${style.price}`}>單價</p>{" "}
+          <p
+            className={`${style.cart_item_title} ${style.price} ${
+              props.event === "草莓季" ? style.event_title : ""
+            }`}
+          >
+            單價
+          </p>{" "}
           <p>{props.price}元</p>
         </div>
         <p className={style.cart_item_count}>
           <Button
             onClick={plusHandler}
-            className={`${style.item_count} ${style.plus}`}
+            className={`${style.item_count} ${
+              props.event === "草莓季" ? style.event_btn : ""
+            } ${style.plus}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +112,9 @@ const CartItem = (props) => {
           </Button>
           <Button
             onClick={minusHandler}
-            className={`${style.item_count} ${style.minus}`}
+            className={`${style.item_count} ${
+              props.event === "草莓季" ? style.event_btn : ""
+            } ${style.minus}`}
             disabled={productIsMin}
           >
             <svg

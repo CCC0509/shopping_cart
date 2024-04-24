@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import AboutCard from "../ui-elements/about-card";
 import { useFn } from "@/context/cart-data-context";
-import { LeftArrow, RightArrow } from "../ui-elements/arrow";
+import { Arrow } from "../ui-elements/arrow";
 
 import style from "./home-about.module.css";
 
@@ -39,8 +39,8 @@ const HomeAbout = (props) => {
   const [titlePosition, setTitlePosition] = useState(-200);
   const [arrowPosition, setArrowPosition] = useState(200);
   const [aboutIndex, setAboutIndex] = useState(0);
-  const { scale, scrollPosition } = useFn();
-  const aboutTitle = useRef();
+  const [backgroudText, setBackgroundText] = useState(0);
+  const { scale, mainScrollPosition, screenHeight } = useFn();
 
   const prevAboutHandler = () => {
     if (aboutData.length > aboutIndex && aboutIndex !== 0) {
@@ -55,11 +55,17 @@ const HomeAbout = (props) => {
   };
 
   useEffect(() => {
-    if (aboutTitle.current) {
-      const titleCurrent = scale(scrollPosition, 0, 80, -200, 0);
-      setTitlePosition(titleCurrent);
-    }
-  }, [scrollPosition]);
+    const titleCurrent = scale(mainScrollPosition, 0, 80, -200, 0);
+    setTitlePosition(titleCurrent);
+    const backgroundTextCurrent = scale(
+      mainScrollPosition,
+      0,
+      screenHeight - 80,
+      -200,
+      0
+    );
+    setBackgroundText(backgroundTextCurrent);
+  }, [mainScrollPosition]);
 
   useEffect(() => {
     setArrowPosition(window.innerHeight > 645 ? window.innerHeight - 445 : 200);
@@ -77,7 +83,6 @@ const HomeAbout = (props) => {
   return (
     <section className={style.about_container}>
       <h2
-        ref={aboutTitle}
         style={{
           transform: `translateY(${titlePosition <= 0 ? titlePosition : "0"}%)`,
         }}
@@ -85,8 +90,16 @@ const HomeAbout = (props) => {
       >
         關於我們
       </h2>
+      <p
+        className={style.background_text}
+        style={{
+          transform: `rotate(45deg) translateX(${backgroudText}%)`,
+        }}
+      >
+        關於我們
+      </p>
       <div className={style.about_list_container}>
-        <LeftArrow
+        <Arrow
           style={{
             transform: `translate(-1rem,calc(${arrowPosition}px - 2rem))`,
           }}
@@ -95,9 +108,9 @@ const HomeAbout = (props) => {
           }`}
           onClick={prevAboutHandler}
         />
-        <RightArrow
+        <Arrow
           style={{
-            transform: `translate(calc(300px - 1rem),calc(${arrowPosition}px - 2rem))`,
+            transform: `translate(calc(300px - 1rem),calc(${arrowPosition}px - 2rem)) rotate(180deg)`,
           }}
           className={`${style.right_arrow}  ${
             aboutIndex === aboutData.length - 1 ? style.arrow_disabled : ""

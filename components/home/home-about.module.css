@@ -1,20 +1,35 @@
 .about_container {
+  position: relative;
   height: calc(100vh - 5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-block: 1rem;
-  gap: 1rem;
+  gap: 3.5rem;
+  background-image: linear-gradient(
+    45deg,
+    rgb(var(--main-color), 0.3) 50%,
+    transparent 50%
+  );
+}
+
+.background_text {
+  position: absolute;
+  right: 10%;
+  top: 30%;
+  color: rgb(var(--main-color), 0.3);
+  font-size: 6rem;
+  user-select: none;
 }
 
 .about_title {
-  border: 0.3rem solid var(--main-color);
-  color: var(--main-color);
+  border: 0.3rem solid rgb(var(--main-color));
+  color: rgb(var(--main-color));
   border-radius: 1rem;
   padding: 0.5rem;
   opacity: 1;
-  z-index: -1;
 }
+
 .about_list_container {
   display: flex;
   flex-direction: column;
@@ -24,8 +39,8 @@
 
 .about_card_slide_in {
   max-width: 300px;
-  color: var(--main-color);
-  border: 0.3rem solid var(--main-color);
+  color: rgb(var(--main-color));
+  border: 0.3rem solid rgb(var(--main-color));
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
@@ -37,8 +52,8 @@
   position: absolute;
   width: 300px;
   height: 200px;
-  color: var(--main-color);
-  border: 0.3rem solid var(--main-color);
+  color: rgb(var(--main-color));
+  border: 0.3rem solid rgb(var(--main-color));
   padding: 1.2rem;
   display: none;
   flex-direction: column;
@@ -47,16 +62,16 @@
 }
 
 .left_arrow.arrow_disabled {
-  border-color: var(--disabled-color);
-  background-color: var(--disabled-color);
-  color: var(--match-color);
+  border-color: rgb(var(--disabled-color));
+  background-color: rgb(var(--disabled-color));
+  color: rgb(var(--match-color));
   cursor: not-allowed;
 }
 
 .right_arrow.arrow_disabled {
-  border-color: var(--disabled-color);
-  background-color: var(--disabled-color);
-  color: var(--match-color);
+  border-color: rgb(var(--disabled-color));
+  background-color: rgb(var(--disabled-color));
+  color: rgb(var(--match-color));
   cursor: not-allowed;
 }
 

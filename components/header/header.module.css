@@ -1,17 +1,19 @@
 .header_container {
   height: 5rem;
   width: 100vw;
-  background-color: var(--main-color);
+  background-color: rgb(var(--main-color));
   display: flex;
   align-items: center;
+
   position: fixed;
   top: 0;
   z-index: 10;
   box-shadow: 0 1px 6px black;
+  user-select: none;
 }
 
 .header_container h1 {
-  color: var(--match-color);
+  color: rgb(var(--match-color));
   height: 85%;
   display: flex;
   align-items: center;
@@ -20,12 +22,43 @@
   padding-inline: 0.5rem;
 }
 
+.logo {
+  text-decoration: none;
+}
+
+.nav_link {
+  position: absolute;
+  width: 30vw;
+  top: calc(50% - 0.5rem);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.nav_link a {
+  text-decoration: none;
+  color: rgb(var(--match-color));
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s linear;
+}
+
+.nav_link a:hover {
+  border-bottom: 2px solid rgb(var(--match-color));
+}
+
+.nav_link a.active {
+  border-bottom: 2px solid rgb(var(--match-color));
+}
+
 .cart_icon {
   width: 2rem;
   position: absolute;
   right: 0.8rem;
-  background-color: var(--match-color);
-  color: var(--main-color);
+  background-color: rgb(var(--match-color));
+  color: rgb(var(--main-color));
   border-radius: 50%;
   padding: 0.3rem;
   cursor: pointer;
@@ -44,9 +77,9 @@
   position: absolute;
   top: 0.8rem;
   right: 2.2rem;
-  background-color: var(--match-color);
-  color: var(--main-color);
-  border: 1px solid var(--main-color);
+  background-color: rgb(var(--match-color));
+  color: rgb(var(--main-color));
+  border: 1px solid rgb(var(--main-color));
   border-radius: 50%;
   padding: 0.3rem;
   font-size: 0.5rem;
@@ -75,10 +108,10 @@
   z-index: 100;
   position: absolute;
   right: 0;
-  background-color: var(--main-color);
-  border: 1px solid var(--match-color);
+  background-color: rgb(var(--main-color));
+  border: 1px solid rgb(var(--match-color));
   border-width: 4.5px 0 4.5px 4.5px;
-  color: var(--match-color);
+  color: rgb(var(--match-color));
   border-radius: 1rem 0 0 1rem;
   padding: 0.3rem;
   cursor: pointer;
@@ -95,8 +128,8 @@
 }
 
 .cancel_show:hover {
-  background-color: var(--match-color);
-  color: var(--main-color);
+  background-color: rgb(var(--match-color));
+  color: rgb(var(--main-color));
 }
 
 .slider_active {

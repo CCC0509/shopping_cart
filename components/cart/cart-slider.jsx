@@ -6,6 +6,7 @@ import { useFn } from "@/context/cart-data-context";
 import allData from "@/public/data";
 
 import style from "./cart-slider.module.css";
+import Link from "next/link";
 
 const CartSlider = (props) => {
   const { cart } = allData;
@@ -19,6 +20,7 @@ const CartSlider = (props) => {
     scale,
     extend,
     setExtend,
+    setRemoveAllCart,
   } = useFn();
 
   useEffect(() => {
@@ -44,8 +46,16 @@ const CartSlider = (props) => {
   };
 
   const clearCartHandler = () => {
-    cart.splice(0, cart.length);
-    setCartData([]);
+    setRemoveAllCart(true);
+    setTimeout(() => {
+      cart.splice(0, cart.length);
+      setCartData([]);
+    }, 500);
+  };
+
+  const keepShoppingHandler = () => {
+    props.setShowCart(false);
+    setExtend(false);
   };
 
   return (
@@ -53,7 +63,12 @@ const CartSlider = (props) => {
       <header className={`${style.cart_header} `}>
         <h2>購物車</h2>
       </header>
-      <div className={style.cart_contain}>
+      <div
+        className={style.cart_contain}
+        style={{
+          height: `${extend ? "calc(100vh - 15rem)" : "calc(100vh - 5rem)"}`,
+        }}
+      >
         <CartList />
       </div>
 
@@ -105,7 +120,11 @@ const CartSlider = (props) => {
             </div>
           </div>
           <div className={style.extend_right}>
-            <Button className={`${style.btn} `}>繼續購物</Button>
+            <Link href="/products">
+              <Button className={`${style.btn} `} onClick={keepShoppingHandler}>
+                繼續購物
+              </Button>
+            </Link>
             <Button
               disabled={cartData.length === 0}
               className={`${style.btn} `}

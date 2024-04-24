@@ -5,7 +5,7 @@
   right: 0;
   top: 0;
   z-index: 100;
-  background-color: var(--main-color);
+  background-color: rgb(var(--main-color));
   border-radius: 1rem;
   transform: translateX(100%);
   transition: transform 0.5s linear;
@@ -14,9 +14,9 @@
 .cart_header {
   width: 100%;
   height: 5rem;
-  background-color: var(--match-color);
+  background-color: rgb(var(--match-color));
   border-radius: 1rem 1rem 0 0;
-  color: var(--main-color);
+  color: rgb(var(--main-color));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,8 +31,8 @@
 
 .cart_contain {
   width: 100%;
-  height: calc(100vh - 15rem);
   overflow-y: scroll;
+  transition: all 0.5s linear;
 }
 
 .cart_contain::-webkit-scrollbar {
@@ -44,8 +44,8 @@
   bottom: 0;
   width: 100%;
   height: 5rem;
-  background-color: var(--match-color);
-  color: var(--main-color);
+  background-color: rgb(var(--match-color));
+  color: rgb(var(--main-color));
   border-radius: 0 0 1rem 1rem;
   user-select: none;
   transition: all 0.5s linear;
@@ -81,8 +81,8 @@
 }
 
 .slide_arrow:hover {
-  background-color: var(--main-color);
-  color: var(--match-color);
+  background-color: rgb(var(--main-color));
+  color: rgb(var(--match-color));
 }
 
 .cart_footer.extend {
@@ -139,18 +139,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 0.5rem solid var(--main-color);
+  border: 0.5rem solid rgb(var(--main-color));
   border-radius: 0 0 1rem 1rem;
 }
 
 .extend_left h3 {
-  background-color: var(--main-color);
-  color: var(--match-color);
+  background-color: rgb(var(--main-color));
+  color: rgb(var(--match-color));
   width: 100%;
   text-align: center;
 }
 
 .btn {
   height: 2rem;
+  width: 100%;
   border-radius: 0.5rem;
 }

@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 import CartSlider from "../cart/cart-slider";
+import BackDrop from "../ui-elements/back-drop";
+import Message from "../shared/message";
 import { useFn } from "@/context/cart-data-context";
 
 import style from "./header.module.css";
-import BackDrop from "../ui-elements/back-drop";
+import Link from "next/link";
 
-const Header = () => {
+const Header = (props) => {
   const [showCart, setShowCart] = useState(false);
   const {
     cartData,
@@ -16,7 +19,10 @@ const Header = () => {
     setProductTotalCount,
     setProductTotalPrice,
     setExtend,
+    setType,
   } = useFn();
+  const pathName = usePathname();
+
   useEffect(() => {
     if (cartData) {
       setProductTotalCount(
@@ -28,6 +34,10 @@ const Header = () => {
     }
   }, [cartData]);
 
+  useEffect(() => {
+    if (pathName !== "/products") setType("所有商品");
+  }, [pathName]);
+
   const cartOpenHandler = () => {
     setShowCart(true);
   };
@@ -38,7 +48,29 @@ const Header = () => {
   };
   return (
     <header className={style.header_container}>
-      <h1>壹點。甜</h1>
+      <Link className={style.logo} href="/">
+        <h1>壹點。甜</h1>
+      </Link>
+      <div className={style.nav_link}>
+        <Link className={`${pathName === "/" ? style.active : ""}`} href="/">
+          首頁
+        </Link>
+        <Link
+          className={`${pathName === "/products" ? style.active : ""}`}
+          href="/products"
+        >
+          商品分類
+        </Link>
+        {cartData.length !== 0 ? (
+          <Link
+            className={`${pathName === "/payment" ? style.active : ""}`}
+            href="/payment"
+          >
+            前往結帳
+          </Link>
+        ) : null}
+      </div>
+
       <span
         className={` ${style.cart_item_count} ${
           !productTotalCount ? style.display_none : ""
@@ -81,7 +113,11 @@ const Header = () => {
         className={`${showCart ? style.slider_active : ""}`}
         onClick={cartCloseHandler}
       />
-      <CartSlider className={`${showCart ? style.slider_active : ""}`} />
+      <CartSlider
+        setShowCart={setShowCart}
+        className={`${showCart ? style.slider_active : ""}`}
+      />
+      <Message />
     </header>
   );
 };

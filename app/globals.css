@@ -1,8 +1,10 @@
 :root {
-  --main-color: rgb(173, 216, 230);
-  --match-color: rgb(255, 255, 255);
-  --disabled-color: rgb(193, 216, 221);
-  --cancel-color: rgb(205, 85, 85);
+  --main-color: 173, 216, 230;
+  --match-color: 255, 255, 255;
+  --event-color: 255, 204, 213;
+  --disabled-color: 193, 216, 221;
+  --event-disabled-color: 255, 220, 230;
+  --cancel-color: 205, 85, 85;
   --drag-list-max-width: 111rem;
   --drag-list-mid-width: calc(84rem + 72px);
   --drag-list-min-width: calc(63rem + 54px);

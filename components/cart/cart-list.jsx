@@ -5,7 +5,7 @@ import CartItem from "./cart-item";
 import style from "./cart-list.module.css";
 
 const CartList = (props) => {
-  const { cartData, setCartData } = useFn();
+  const { cartData } = useFn();
   return (
     <div>
       <ul className={style.cart_item_container}>
@@ -15,8 +15,7 @@ const CartList = (props) => {
             image={d.image}
             name={d.name}
             price={d.price}
-            cartData={cartData}
-            setCartData={setCartData}
+            event={d.event}
           />
         ))}
       </ul>

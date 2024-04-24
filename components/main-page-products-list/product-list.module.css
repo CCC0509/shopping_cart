@@ -8,14 +8,28 @@
   gap: 8rem;
   padding-block: 2rem;
   transition: all 0.5s ease;
+  background-image: linear-gradient(
+    -45deg,
+    transparent 50%,
+    rgb(var(--main-color), 0.3) 50%
+  );
+}
+
+.background_text {
+  position: absolute;
+  right: 10%;
+  bottom: 20%;
+  color: rgb(var(--main-color), 0.3);
+  font-size: 6rem;
+  user-select: none;
 }
 
 .product_title {
-  background-color: var(--main-color);
+  background-color: rgb(var(--main-color));
   padding: 0.8rem 0.5rem;
   line-height: 1.5rem;
   border-radius: 1rem;
-  color: var(--match-color);
+  color: rgb(var(--match-color));
 }
 
 .product_list_container {
@@ -43,20 +57,21 @@
 .right_arrow {
   top: 22.6rem;
   right: 15%;
+  transform: rotate(180deg);
   transition: all 0.5s ease;
 }
 
 .left_arrow.arrow_disabled {
-  border-color: var(--disabled-color);
-  background-color: var(--disabled-color);
-  color: var(--match-color);
+  border-color: rgb(var(--disabled-color));
+  background-color: rgb(var(--disabled-color));
+  color: rgb(var(--match-color));
   cursor: not-allowed;
 }
 
 .right_arrow.arrow_disabled {
-  border-color: var(--disabled-color);
-  background-color: var(--disabled-color);
-  color: var(--match-color);
+  border-color: rgb(var(--disabled-color));
+  background-color: rgb(var(--disabled-color));
+  color: rgb(var(--match-color));
   cursor: not-allowed;
 }
 

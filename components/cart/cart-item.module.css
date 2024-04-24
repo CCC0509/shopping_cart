@@ -4,9 +4,34 @@
   align-items: center;
   margin: 0.5rem;
   gap: 1rem;
-  background-color: var(--match-color);
-  color: var(--main-color);
+  background-color: rgb(var(--match-color));
+  color: rgb(var(--main-color));
   user-select: none;
+  border-radius: 1rem;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.event_item_container {
+  color: rgb(var(--event-color));
+}
+
+.cart_item_container.slide_out {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.event_text {
+  position: absolute;
+  top: -0.5rem;
+  left: 0;
+  z-index: 1;
+  background-color: rgb(var(--event-color));
+  color: rgb(var(--match-color));
+  font-size: 0.8rem;
+  transform: rotate(-45deg) translateX(-35%);
+  width: 5rem;
+  text-align: center;
 }
 
 .cart_item_image_container {
@@ -36,10 +61,14 @@
   left: 50%;
   transform: translate(-50%, calc(-50% - 1.6rem));
   font-size: 0.7rem;
-  background-color: var(--main-color);
-  color: var(--match-color);
+  background-color: rgb(var(--main-color));
+  color: rgb(var(--match-color));
   border-radius: 0.4rem;
   padding: 0.1rem 0.2rem;
+}
+
+.event_title {
+  background-color: rgb(var(--event-color));
 }
 
 .product {
@@ -64,15 +93,26 @@
   height: 1rem;
   width: 1rem;
   cursor: pointer;
-  background-color: var(--match-color);
-  color: var(--main-color);
+  background-color: rgb(var(--match-color));
+  color: rgb(rgb(var(--main-color)));
   border-radius: 50%;
-  border: 1px solid var(--main-color);
+  border: 1px solid rgb(var(--main-color));
 }
 
 .item_count:hover {
-  background-color: var(--main-color);
-  color: var(--match-color);
+  background-color: rgb(var(--main-color));
+  color: rgb(var(--match-color));
+}
+
+.item_count.event_btn {
+  color: rgb(var(--event-color));
+  border-color: rgb(var(--event-color));
+}
+
+.item_count.event_btn:hover,
+.item_count.event_btn:active {
+  background-color: rgb(var(--event-color));
+  color: rgb(var(--match-color));
 }
 
 .plus {
@@ -99,10 +139,17 @@
   transform: scale(1) translate(-50%, calc(-50% + 1.4rem));
 }
 
+.event_btn.minus:disabled,
+.event_btn.minus:disabled:hover,
+.event_btn.minus:disabled:active {
+  background-color: rgb(var(--event-disabled-color));
+  border-color: rgb(var(--event-disabled-color));
+}
+
 .trash {
   width: 8%;
   transform: translateX(-0.2rem);
-  color: var(--cancel-color);
+  color: rgb(var(--cancel-color));
   cursor: pointer;
   transition: all 0.2s ease;
   border-radius: 0.2rem;
@@ -110,8 +157,8 @@
 }
 
 .trash:hover {
-  background-color: var(--cancel-color);
-  color: var(--match-color);
+  background-color: rgb(var(--cancel-color));
+  color: rgb(var(--match-color));
 }
 
 .trash:active {

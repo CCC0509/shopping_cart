@@ -59,4 +59,6 @@ const data = [
 
 let cart = [];
 
-export default { data, cart };
+let cartMessageData = [];
+
+export default { data, cart, cartMessageData };

@@ -1,0 +1,72 @@
+.container {
+  padding-top: 5rem;
+  width: calc(100% - 10rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.container h2 {
+  padding: 3rem 0;
+  color: rgb(var(--main-color));
+}
+
+.container h2.event {
+  color: rgb(var(--event-color));
+}
+
+.products_list_container {
+  display: flex;
+  width: 100%;
+  height: 20rem;
+  justify-content: space-evenly;
+  padding-inline: 1rem;
+  gap: 1rem;
+}
+
+.card {
+  animation: appear 0.5s linear;
+}
+
+.page_controller_container {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 4.5rem;
+  background-color: rgb(var(--main-color));
+  color: rgb(var(--match-color));
+  padding-inline: 1.5rem;
+  border-radius: 4px;
+}
+
+.page_controller_container.event {
+  background-color: rgb(var(--event-color));
+}
+
+.page_controller {
+  width: 1.5rem;
+  height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.page_controller.active {
+  color: rgb(var(--main-color));
+  background-color: rgb(var(--match-color));
+  border-radius: 50%;
+}
+
+.page_controller.active.event {
+  color: rgb(var(--event-color));
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

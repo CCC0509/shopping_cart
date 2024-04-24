@@ -4,6 +4,7 @@ const Card = (props) => {
   return (
     <div
       onMouseDown={props.onMouseDown}
+      style={props.style}
       className={`${style.card} ${props.className}`}
     >
       {props.children}

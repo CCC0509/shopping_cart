@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import ProductsItem from "./product-item";
 import { useFn } from "@/context/cart-data-context";
-import { LeftArrow, RightArrow } from "../ui-elements/arrow";
+import { Arrow } from "../ui-elements/arrow";
 import allData from "@/public/data";
 
 import style from "./product-list.module.css";
@@ -12,49 +12,23 @@ import style from "./product-list.module.css";
 const ProductsList = (props) => {
   const [initX, setInitX] = useState(null);
   const [move, setMove] = useState(0);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [productListScrollPosition, setProductListScrollPosition] = useState(0);
   const [scrolling, setScrolling] = useState(false);
-  const [scrollCurrentWidth, setScrollCurrentWidth] = useState(null);
   const [clickMove, setClickMove] = useState(0);
   const [clickMax, setClickMax] = useState(false);
   const [clickAble, setClickAble] = useState(false);
-  const { scale } = useFn();
+  const [backgroudText, setBackgroundText] = useState(0);
+  const {
+    scale,
+    clickDisable,
+    setClickDisable,
+    screenHeight,
+    mainScrollPosition,
+  } = useFn();
   const dragDiv = useRef();
   const { data } = allData;
   let cardGap = 16;
   const dataLength = data.length;
-
-  useEffect(() => {
-    if (!dragDiv.current) {
-      return;
-    }
-    const { scrollWidth } = dragDiv.current;
-    setScrollCurrentWidth(() => scrollWidth);
-    const onResize = () => {
-      const { scrollWidth } = dragDiv.current;
-      if (scrollCurrentWidth !== scrollWidth) {
-        const toZero = setInterval(() => {
-          const moveRange = scale(
-            dragDiv.current.scrollLeft,
-            scrollPosition,
-            0,
-            5,
-            0.5
-          );
-          dragDiv.current.scrollLeft -= moveRange;
-          if (dragDiv.current.scrollLeft === 0) {
-            setScrollPosition(dragDiv.current.scrollLeft);
-            setClickMove(0);
-            setScrolling(false);
-            clearInterval(toZero);
-          }
-        }, 10);
-        setScrollCurrentWidth(scrollWidth);
-      }
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [scrollCurrentWidth, scrollPosition]);
 
   const scrollReset = () => {
     const { scrollLeft, offsetWidth, scrollWidth } = dragDiv.current;
@@ -69,16 +43,21 @@ const ProductsList = (props) => {
     const moveWidth =
       (scrollWidth - cardGap * (dataLength - 1)) / dataLength + cardGap;
     if (scrollLeft === 0) {
-      return (dragDiv.current.scrollLeft = 0);
+      dragDiv.current.scrollLeft = 0;
+      setProductListScrollPosition(dragDiv.current.scrollLeft);
+      setClickMove(0);
+      return;
     }
 
     if (scrollLeft === scrollWidth - offsetWidth) {
+      dragDiv.current.scrollLeft = scrollWidth - offsetWidth;
       setScrolling(false);
-      return (dragDiv.current.scrollLeft = scrollWidth - offsetWidth);
+      setProductListScrollPosition(dragDiv.current.scrollLeft);
+      return;
     }
     if (
-      scrollPosition < scrollLeft &&
-      (scrollLeft - scrollPosition) / moveWidth >= 0.5
+      productListScrollPosition < scrollLeft &&
+      (scrollLeft - productListScrollPosition) / moveWidth >= 0.5
     ) {
       dragDiv.current.scrollLeft = scrollLeft;
 
@@ -86,23 +65,26 @@ const ProductsList = (props) => {
         const moveRange = scale(
           dragDiv.current.scrollLeft,
           scrollLeft,
-          scrollPosition +
-            Math.ceil((scrollLeft - scrollPosition) / moveWidth) * moveWidth,
+          productListScrollPosition +
+            Math.ceil((scrollLeft - productListScrollPosition) / moveWidth) *
+              moveWidth,
           5,
-          1
+          navigator.userAgent.indexOf("Chrome") !== -1 ? 0.5 : 1
         );
         dragDiv.current.scrollLeft += moveRange;
         setClickAble(true);
         if (
           dragDiv.current.scrollLeft ===
-          scrollPosition +
-            Math.ceil((scrollLeft - scrollPosition) / moveWidth) * moveWidth
+          productListScrollPosition +
+            Math.ceil((scrollLeft - productListScrollPosition) / moveWidth) *
+              moveWidth
         ) {
           setClickMove(
             (prev) =>
-              prev + Math.ceil((scrollLeft - scrollPosition) / moveWidth)
+              prev +
+              Math.ceil((scrollLeft - productListScrollPosition) / moveWidth)
           );
-          setScrollPosition(dragDiv.current.scrollLeft);
+          setProductListScrollPosition(dragDiv.current.scrollLeft);
           setScrolling(false);
           clearInterval(toRight);
           setClickAble(false);
@@ -111,8 +93,8 @@ const ProductsList = (props) => {
       return;
     }
     if (
-      scrollPosition < scrollLeft &&
-      (scrollLeft - scrollPosition) / moveWidth < 0.5
+      productListScrollPosition < scrollLeft &&
+      (scrollLeft - productListScrollPosition) / moveWidth < 0.5
     ) {
       dragDiv.current.scrollLeft = scrollLeft;
 
@@ -120,17 +102,19 @@ const ProductsList = (props) => {
         const moveRange = scale(
           dragDiv.current.scrollLeft,
           scrollLeft,
-          scrollPosition +
-            Math.floor((scrollLeft - scrollPosition) / moveWidth) * moveWidth,
+          productListScrollPosition +
+            Math.floor((scrollLeft - productListScrollPosition) / moveWidth) *
+              moveWidth,
           5,
-          1
+          navigator.userAgent.indexOf("Chrome") !== -1 ? 0 : 0.5
         );
         dragDiv.current.scrollLeft -= moveRange;
         setClickAble(true);
         if (
           dragDiv.current.scrollLeft ===
-          scrollPosition +
-            Math.floor((scrollLeft - scrollPosition) / moveWidth) * moveWidth
+          productListScrollPosition +
+            Math.floor((scrollLeft - productListScrollPosition) / moveWidth) *
+              moveWidth
         ) {
           setScrolling(false);
           clearInterval(toLeft);
@@ -139,8 +123,8 @@ const ProductsList = (props) => {
       }, 10);
     }
     if (
-      scrollPosition > scrollLeft &&
-      (scrollLeft - scrollPosition) / moveWidth > -0.5
+      productListScrollPosition > scrollLeft &&
+      (scrollLeft - productListScrollPosition) / moveWidth > -0.5
     ) {
       dragDiv.current.scrollLeft = scrollLeft;
 
@@ -148,17 +132,19 @@ const ProductsList = (props) => {
         const moveRange = scale(
           dragDiv.current.scrollLeft,
           scrollLeft,
-          scrollPosition -
-            Math.ceil((scrollLeft - scrollPosition) / moveWidth) * moveWidth,
+          productListScrollPosition -
+            Math.ceil((scrollLeft - productListScrollPosition) / moveWidth) *
+              moveWidth,
           5,
-          1
+          navigator.userAgent.indexOf("Chrome") !== -1 ? 0.5 : 1
         );
         dragDiv.current.scrollLeft += moveRange;
         setClickAble(true);
         if (
           dragDiv.current.scrollLeft ===
-          scrollPosition -
-            Math.ceil((scrollLeft - scrollPosition) / moveWidth) * moveWidth
+          productListScrollPosition -
+            Math.ceil((scrollLeft - productListScrollPosition) / moveWidth) *
+              moveWidth
         ) {
           setScrolling(false);
           clearInterval(toRight);
@@ -168,8 +154,8 @@ const ProductsList = (props) => {
       return;
     }
     if (
-      scrollPosition > scrollLeft &&
-      (scrollLeft - scrollPosition) / moveWidth <= -0.5
+      productListScrollPosition > scrollLeft &&
+      (scrollLeft - productListScrollPosition) / moveWidth <= -0.5
     ) {
       dragDiv.current.scrollLeft = scrollLeft;
       setClickMax(false);
@@ -177,23 +163,26 @@ const ProductsList = (props) => {
         const moveRange = scale(
           dragDiv.current.scrollLeft,
           scrollLeft,
-          scrollPosition +
-            Math.floor((scrollLeft - scrollPosition) / moveWidth) * moveWidth,
+          productListScrollPosition +
+            Math.floor((scrollLeft - productListScrollPosition) / moveWidth) *
+              moveWidth,
           5,
-          1
+          navigator.userAgent.indexOf("Chrome") !== -1 ? 0 : 0.5
         );
         dragDiv.current.scrollLeft -= moveRange;
         setClickAble(true);
         if (
           dragDiv.current.scrollLeft ===
-          scrollPosition +
-            Math.floor((scrollLeft - scrollPosition) / moveWidth) * moveWidth
+          productListScrollPosition +
+            Math.floor((scrollLeft - productListScrollPosition) / moveWidth) *
+              moveWidth
         ) {
           setClickMove(
             (prev) =>
-              prev + Math.floor((scrollLeft - scrollPosition) / moveWidth)
+              prev +
+              Math.floor((scrollLeft - productListScrollPosition) / moveWidth)
           );
-          setScrollPosition(dragDiv.current.scrollLeft);
+          setProductListScrollPosition(dragDiv.current.scrollLeft);
           setScrolling(false);
           clearInterval(toLeft);
           setClickAble(false);
@@ -219,15 +208,16 @@ const ProductsList = (props) => {
     if (!Number.isInteger(scrollLeft / moveWidth)) {
       return;
     }
+
     setScrolling(() => true);
     setInitX(() => clientX);
-    setScrollPosition(scrollLeft);
+    setProductListScrollPosition(scrollLeft);
   };
 
   const dragMoveHandler = (e) => {
     const { clientX } = e;
 
-    if (initX) {
+    if (initX && Math.abs(initX - clientX) > 15) {
       setMove(() => initX - clientX);
     }
   };
@@ -235,7 +225,7 @@ const ProductsList = (props) => {
   const mouseUpHandler = (e) => {
     setInitX(null);
     setScrolling(false);
-
+    setClickDisable(false);
     if (!scrolling) {
       return;
     }
@@ -245,23 +235,12 @@ const ProductsList = (props) => {
   const mouseLeaveHandler = (e) => {
     setInitX(null);
     setScrolling(false);
-
+    setClickDisable(false);
     if (!scrolling) {
       return;
     }
     scrollReset();
   };
-
-  useEffect(() => {
-    dragDiv.current.scrollLeft = scrollPosition + move;
-  }, [move]);
-
-  useEffect(() => {
-    const { scrollWidth, offsetWidth } = dragDiv.current;
-    if (scrollPosition === scrollWidth - offsetWidth) {
-      setClickMax(true);
-    }
-  }, [scrollPosition]);
 
   const nextProduct = () => {
     const { scrollLeft, scrollWidth, offsetWidth } = dragDiv.current;
@@ -278,7 +257,7 @@ const ProductsList = (props) => {
     if (!Number.isInteger(scrollLeft / moveWidth)) {
       return;
     }
-    if (scrollPosition === scrollWidth - offsetWidth) {
+    if (productListScrollPosition === scrollWidth - offsetWidth) {
       return;
     }
 
@@ -288,20 +267,24 @@ const ProductsList = (props) => {
       const moveRange = scale(
         dragDiv.current.scrollLeft,
         scrollLeft,
-        scrollPosition + moveWidth,
+        productListScrollPosition + moveWidth,
         5,
-        1
+        navigator.userAgent.indexOf("Chrome") !== -1 ? 0.5 : 1
       );
+
       dragDiv.current.scrollLeft += moveRange;
 
       setClickAble(true);
-      if (dragDiv.current.scrollLeft === scrollPosition + moveWidth) {
-        setScrollPosition(dragDiv.current.scrollLeft);
+      if (
+        dragDiv.current.scrollLeft ===
+        productListScrollPosition + moveWidth
+      ) {
+        setProductListScrollPosition(dragDiv.current.scrollLeft);
         setScrolling(false);
         clearInterval(toRight);
         setClickAble(false);
       }
-    }, 5);
+    }, 1);
   };
 
   const prevProduct = () => {
@@ -328,14 +311,17 @@ const ProductsList = (props) => {
       const moveRange = scale(
         dragDiv.current.scrollLeft,
         scrollLeft,
-        scrollPosition - moveWidth,
+        productListScrollPosition - moveWidth,
         5,
-        0.5
+        navigator.userAgent.indexOf("Chrome") !== -1 ? 0 : 0.5
       );
       dragDiv.current.scrollLeft -= moveRange;
       setClickAble(true);
-      if (dragDiv.current.scrollLeft === scrollPosition - moveWidth) {
-        setScrollPosition(dragDiv.current.scrollLeft);
+      if (
+        dragDiv.current.scrollLeft ===
+        productListScrollPosition - moveWidth
+      ) {
+        setProductListScrollPosition(dragDiv.current.scrollLeft);
         setScrolling(false);
         clearInterval(toLeft);
         setClickAble(false);
@@ -343,16 +329,78 @@ const ProductsList = (props) => {
     }, 5);
   };
 
+  useEffect(() => {
+    const onResize = () => {
+      if (productListScrollPosition !== 0) {
+        const toZero = setInterval(() => {
+          const moveRange = scale(
+            dragDiv.current.scrollLeft,
+            productListScrollPosition,
+            0,
+            20,
+            0.5
+          );
+          dragDiv.current.scrollLeft -= moveRange;
+          setScrolling(true);
+          if (dragDiv.current.scrollLeft === 0) {
+            setProductListScrollPosition(dragDiv.current.scrollLeft);
+            setClickMove(0);
+            setScrolling(false);
+            setClickMax(false);
+            clearInterval(toZero);
+          }
+        }, 10);
+      }
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [productListScrollPosition]);
+
+  useEffect(() => {
+    if (!dragDiv.current) return;
+    const { scrollWidth, offsetWidth } = dragDiv.current;
+
+    if (productListScrollPosition === scrollWidth - offsetWidth) {
+      return setClickMax(true);
+    }
+    setClickMax(false);
+  }, [productListScrollPosition]);
+
+  useEffect(() => {
+    if (clickDisable) {
+      return;
+    }
+    dragDiv.current.scrollLeft = productListScrollPosition + move;
+  }, [move]);
+
+  useEffect(() => {
+    const backgroundTextCurrent = scale(
+      mainScrollPosition,
+      screenHeight - 80,
+      (screenHeight - 80) * 2,
+      200,
+      0
+    );
+    setBackgroundText(backgroundTextCurrent);
+  }, [mainScrollPosition]);
+
   return (
     <section className={style.product_container}>
-      <h2 className={style.product_title}>產品列表</h2>
-      <LeftArrow
+      <h2 className={style.product_title}>商品列表</h2>
+      <p
+        className={style.background_text}
+        style={{ transform: `rotate(-45deg) translateX(${backgroudText}%)` }}
+      >
+        商品列表
+      </p>
+      <Arrow
         className={`${style.left_arrow} ${
           clickMove === 0 ? style.arrow_disabled : ""
         }`}
         onClick={prevProduct}
       />
-      <RightArrow
+      <Arrow
         className={`${style.right_arrow} ${
           clickMax ? style.arrow_disabled : ""
         }`}
@@ -372,8 +420,8 @@ const ProductsList = (props) => {
               name={d.name}
               price={d.price}
               image={d.image}
+              event={d.event}
               data={d}
-              cart={props.cart}
               clickAble={clickAble}
             />
           ))}

@@ -10,7 +10,7 @@ const AboutCard = (props) => {
   const [slidePosition, setSlidePosition] = useState(200);
   const [cardPosition, setCardPosition] = useState(0);
   const [windowHeight, setWindowHeight] = useState(false);
-  const { scale, scrollPosition, screenHeight, screenWidth } = useFn();
+  const { scale, mainScrollPosition, screenHeight, screenWidth } = useFn();
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const AboutCard = (props) => {
       }
       return setSlidePosition(250);
     }
-  }, [scrollPosition]);
+  }, [mainScrollPosition]);
 
   useEffect(() => {
     if (window.innerHeight >= 824) {
