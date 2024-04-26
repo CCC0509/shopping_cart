@@ -9,6 +9,7 @@ import style from "./products-page-main.module.css";
 
 const ProductsPageMain = () => {
   const [pageSelecter, setPageSelecter] = useState(1);
+  const [productShow, setProductShow] = useState(2);
   const { type } = useFn();
   const { data } = allData;
   const filterData = data.filter((d) => {
@@ -17,7 +18,7 @@ const ProductsPageMain = () => {
     if (d.event === type) return d.event;
   });
   const pageController = [];
-  for (let i = 1; i <= Math.ceil(filterData.length / 2); i++) {
+  for (let i = 1; i <= Math.ceil(filterData.length / productShow); i++) {
     pageController.push(i);
   }
   useEffect(() => {
@@ -27,6 +28,19 @@ const ProductsPageMain = () => {
     setPageSelecter(Number(e.target.innerText));
   };
 
+  useEffect(() => {
+    if (window.innerWidth < 690) setProductShow(1);
+    const onResize = () => {
+      if (window.innerWidth < 690) {
+        return setProductShow(1);
+      }
+      return setProductShow(2);
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
     <main className={style.container}>
       <h2 className={`${type === "草莓季" ? style.event : ""}`}>{type}</h2>
@@ -34,7 +48,9 @@ const ProductsPageMain = () => {
         {filterData
           .sort((a, b) => b.event.localeCompare(a.event))
           .filter(
-            (d, ind) => 2 * (pageSelecter - 1) <= ind && ind < 2 * pageSelecter
+            (d, ind) =>
+              productShow * (pageSelecter - 1) <= ind &&
+              ind < productShow * pageSelecter
           )
           .map((d, ind) => {
             return (

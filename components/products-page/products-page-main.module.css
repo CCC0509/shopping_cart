@@ -70,3 +70,17 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 690px) {
+  .page_controller_container {
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 4.5rem;
+    background-color: rgb(var(--main-color));
+    color: rgb(var(--match-color));
+    padding-inline: 1rem;
+    border-radius: 4px;
+  }
+}

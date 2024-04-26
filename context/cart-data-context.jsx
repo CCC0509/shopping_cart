@@ -54,6 +54,7 @@ export const UseFnProvider = (props) => {
   const [clickDisable, setClickDisable] = useState(false);
   const [navigateScrollHeight, setNavigateScrollHeight] = useState(null);
   const [type, setType] = useState("所有商品");
+
   const currHeight = useRef();
   const scale = (num, in_min, in_max, out_min, out_max) => {
     return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
