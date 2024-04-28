@@ -16,7 +16,8 @@ const ScrollHandler = (props) => {
     if (!currHeight.current) return;
     const handleScroll = () => {
       if (navigateScrollHeight) {
-        currHeight.current.scrollTop = navigateScrollHeight;
+        console.log(1);
+        return (currHeight.current.scrollTop = navigateScrollHeight);
       }
     };
 

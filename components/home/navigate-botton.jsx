@@ -87,7 +87,7 @@ const NavigateButton = () => {
           currHeight.current.offsetHeight - 80,
           0,
           10,
-          0
+          navigator.userAgent.indexOf("Chrome") !== -1 ? 0 : 0.5
         );
         currHeight.current.scrollTop -= move;
         setNavigateScrollHeight(currHeight.current.scrollTop);
@@ -112,7 +112,7 @@ const NavigateButton = () => {
         (currHeight.current.offsetHeight - 80) * 2,
         currHeight.current.offsetHeight - 80,
         10,
-        0
+        navigator.userAgent.indexOf("Chrome") !== -1 ? 0 : 0.5
       );
       currHeight.current.scrollTop -= move;
       setNavigateScrollHeight(currHeight.current.scrollTop);
@@ -142,7 +142,7 @@ const NavigateButton = () => {
           0,
           currHeight.current.offsetHeight,
           10,
-          0
+          navigator.userAgent.indexOf("Chrome") !== -1 ? 0 : 0.5
         );
         currHeight.current.scrollTop += move;
         setNavigateScrollHeight(currHeight.current.scrollTop);
@@ -169,7 +169,7 @@ const NavigateButton = () => {
         currHeight.current.offsetHeight - 80,
         (currHeight.current.offsetHeight - 80) * 2,
         10,
-        0.5
+        navigator.userAgent.indexOf("Chrome") !== -1 ? 0.5 : 1
       );
       currHeight.current.scrollTop += move;
       setNavigateScrollHeight(currHeight.current.scrollTop);

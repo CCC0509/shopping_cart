@@ -53,7 +53,7 @@ const CartSlider = (props) => {
     }, 500);
   };
 
-  const keepShoppingHandler = () => {
+  const btnClickHandler = () => {
     props.setShowCart(false);
     setExtend(false);
   };
@@ -121,7 +121,7 @@ const CartSlider = (props) => {
           </div>
           <div className={style.extend_right}>
             <Link href="/products">
-              <Button className={`${style.btn} `} onClick={keepShoppingHandler}>
+              <Button className={`${style.btn} `} onClick={btnClickHandler}>
                 繼續購物
               </Button>
             </Link>
@@ -132,12 +132,15 @@ const CartSlider = (props) => {
             >
               清空購物車
             </Button>
-            <Button
-              disabled={cartData.length === 0}
-              className={`${style.btn} `}
-            >
-              結帳
-            </Button>
+            <Link href="/payment">
+              <Button
+                disabled={cartData.length === 0}
+                className={`${style.btn} `}
+                onClick={btnClickHandler}
+              >
+                結帳
+              </Button>
+            </Link>
           </div>
         </div>
       </footer>

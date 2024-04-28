@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import CartSlider from "../cart/cart-slider";
@@ -10,7 +11,6 @@ import { useFn } from "@/context/cart-data-context";
 import NavLink from "../ui-elements/nav-link";
 
 import style from "./header.module.css";
-import NavSlider from "./nav-slider";
 
 const Header = (props) => {
   const [showCart, setShowCart] = useState(false);
@@ -22,6 +22,7 @@ const Header = (props) => {
     setExtend,
     setNavSlideOut,
   } = useFn();
+  const pathName = usePathname();
 
   useEffect(() => {
     if (cartData) {
@@ -48,7 +49,11 @@ const Header = (props) => {
   };
   return (
     <header className={style.header_container}>
-      <Link className={style.logo} href="/">
+      <Link
+        className={style.logo}
+        href="/"
+        onClick={pathName === "/" ? (e) => e.preventDefault() : null}
+      >
         <h1>壹點。甜</h1>
       </Link>
       <NavLink className={style.nav_link} onClick={(e) => e.preventDefault()} />
