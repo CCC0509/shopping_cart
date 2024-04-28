@@ -61,4 +61,6 @@ let cart = [];
 
 let cartMessageData = [];
 
-export default { data, cart, cartMessageData };
+let consumerData = [];
+
+export default { data, cart, cartMessageData, consumerData };

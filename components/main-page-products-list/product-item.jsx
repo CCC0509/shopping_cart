@@ -45,7 +45,9 @@ const ProductsItem = (props) => {
         } ${props.className} `}
       >
         {props.event !== "" ? (
-          <p className={style.event_text}>{props.event}</p>
+          <p className={`${style.event_text} ${props.event_text}`}>
+            {props.event}
+          </p>
         ) : null}
         <div className={style.img_container}>
           <img src={props.image} alt={props.name} />

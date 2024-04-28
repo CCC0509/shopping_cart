@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 import CartSlider from "../cart/cart-slider";
 import BackDrop from "../ui-elements/back-drop";
 import Message from "../shared/message";
 import { useFn } from "@/context/cart-data-context";
+import NavLink from "../ui-elements/nav-link";
 
 import style from "./header.module.css";
-import Link from "next/link";
+import NavSlider from "./nav-slider";
 
 const Header = (props) => {
   const [showCart, setShowCart] = useState(false);
@@ -19,9 +20,8 @@ const Header = (props) => {
     setProductTotalCount,
     setProductTotalPrice,
     setExtend,
-    setType,
+    setNavSlideOut,
   } = useFn();
-  const pathName = usePathname();
 
   useEffect(() => {
     if (cartData) {
@@ -34,10 +34,6 @@ const Header = (props) => {
     }
   }, [cartData]);
 
-  useEffect(() => {
-    if (pathName !== "/products") setType("所有商品");
-  }, [pathName]);
-
   const cartOpenHandler = () => {
     setShowCart(true);
   };
@@ -46,30 +42,16 @@ const Header = (props) => {
     setShowCart(false);
     setExtend(false);
   };
+
+  const navListHandler = () => {
+    setNavSlideOut((prev) => (prev ? false : true));
+  };
   return (
     <header className={style.header_container}>
       <Link className={style.logo} href="/">
         <h1>壹點。甜</h1>
       </Link>
-      <div className={style.nav_link}>
-        <Link className={`${pathName === "/" ? style.active : ""}`} href="/">
-          首頁
-        </Link>
-        <Link
-          className={`${pathName === "/products" ? style.active : ""}`}
-          href="/products"
-        >
-          商品分類
-        </Link>
-        {cartData.length !== 0 ? (
-          <Link
-            className={`${pathName === "/payment" ? style.active : ""}`}
-            href="/payment"
-          >
-            前往結帳
-          </Link>
-        ) : null}
-      </div>
+      <NavLink className={style.nav_link} onClick={(e) => e.preventDefault()} />
 
       <span
         className={` ${style.cart_item_count} ${
@@ -109,6 +91,22 @@ const Header = (props) => {
           d="M6 18 18 6M6 6l12 12"
         />
       </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={2}
+        stroke="currentColor"
+        className={style.hidden_list}
+        onClick={navListHandler}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
+        />
+      </svg>
+
       <BackDrop
         className={`${showCart ? style.slider_active : ""}`}
         onClick={cartCloseHandler}

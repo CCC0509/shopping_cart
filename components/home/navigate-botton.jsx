@@ -55,17 +55,17 @@ const NavigateButton = () => {
         return;
       }
       if (scrollTop === offsetHeight - 80) {
-        setNavigateText(["回到最上面", "產品列表"]);
+        setNavigateText(["回到最上面", "商品列表"]);
         return;
       }
       if (
         scrollTop > offsetHeight - 80 &&
         scrollTop < (offsetHeight - 80) * 2
       ) {
-        setNavigateText(["關於我們", "產品列表"]);
+        setNavigateText(["關於我們", "商品列表"]);
         return;
       }
-      if (scrollTop >= (offsetHeight - 80) * 2) {
+      if (scrollTop === (offsetHeight - 80) * 2) {
         controlDispatch({ type: "BOTTOM", action: "isBottom" });
         setNavigateText(["關於我們", ""]);
         return;

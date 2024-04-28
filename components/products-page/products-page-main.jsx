@@ -62,6 +62,7 @@ const ProductsPageMain = () => {
                 event={d.event}
                 data={d}
                 className={style.card}
+                event_text={style.event_text}
               />
             );
           })}

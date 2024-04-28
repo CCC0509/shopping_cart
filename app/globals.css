@@ -22,6 +22,12 @@
 body {
   position: relative;
   animation: appear 1s linear forwards;
+  overflow-x: hidden;
+}
+
+.scroll_container {
+  height: 100vh;
+  overflow-y: auto;
 }
 
 @keyframes appear {

@@ -1,0 +1,30 @@
+.input_container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.input {
+  border: 2.5px solid rgb(var(--main-color));
+}
+
+.input:focus {
+  outline: 0;
+}
+
+.input.error {
+  border-color: rgb(var(--cancel-color));
+}
+
+.importent {
+  color: rgb(var(--cancel-color));
+}
+
+.message {
+  position: absolute;
+  bottom: -1.3rem;
+}
+
+.error {
+  color: rgb(var(--cancel-color));
+}

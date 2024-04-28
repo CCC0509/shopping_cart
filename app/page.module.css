@@ -1,4 +1,8 @@
 .home_container {
-  height: 100vh;
+  height: calc(278vh - 10rem);
   overflow-x: hidden;
+}
+
+.home_container::-webkit-scrollbar {
+  width: 0;
 }

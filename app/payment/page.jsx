@@ -1,19 +1,18 @@
 "use client";
-import { redirect } from "next/navigation";
 
 import { useFn } from "@/context/cart-data-context";
+import OrderCheck from "@/components/payment-page/order-check";
+import OrderConfirm from "@/components/payment-page/order-confirm";
 
 import style from "./page.module.css";
-import OrderCheck from "@/components/payment-page/order-check";
 
 const Payment = () => {
-  const { cartData } = useFn();
-  if (cartData.length === 0) {
-    redirect("/products");
-  }
+  const { order } = useFn();
+
   return (
     <main className={style.container}>
       <OrderCheck />
+      {order && <OrderConfirm />}
     </main>
   );
 };

@@ -1,0 +1,14 @@
+.container a {
+  text-decoration: none;
+  color: rgb(var(--match-color));
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s linear;
+}
+
+.container a:hover {
+  border-bottom: 2px solid rgb(var(--match-color));
+}
+
+.container a.active {
+  border-bottom: 2px solid rgb(var(--match-color));
+}

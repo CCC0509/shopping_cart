@@ -1,0 +1,53 @@
+.container {
+  width: 50vw;
+  height: 50vh;
+  background-color: rgb(var(--match-color));
+  position: absolute;
+  top: 10rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 16px;
+  border: 8px solid rgb(var(--main-color));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container h3 {
+  color: rgb(var(--main-color));
+}
+
+.container p {
+  position: absolute;
+  bottom: 0.5rem;
+  color: rgb(var(--main-color));
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: calc(6 * 30px);
+  height: 50px;
+  display: flex;
+  color: #8d7958;
+  filter: drop-shadow(30px 25px 0 currentColor)
+    drop-shadow(60px 0 0 currentColor) drop-shadow(120px 0 0 currentColor);
+  clip-path: inset(0 100% 0 0);
+  animation: l12 3s infinite steps(7);
+  position: absolute;
+  bottom: 2rem;
+}
+.loader:before {
+  content: "";
+  width: 30px;
+  height: 25px;
+  --c: no-repeat radial-gradient(farthest-side, currentColor 92%, #0000);
+  background: var(--c) left / 70% 70%, var(--c) right/20% 20%,
+    var(--c) top 0 right 15%/20% 20%, var(--c) bottom 0 right 15%/20% 20%;
+}
+@keyframes l12 {
+  100% {
+    clip-path: inset(0 -30px 0 0);
+  }
+}

@@ -5,14 +5,15 @@ import ScrollHandler from "@/components/home/scroll-handler";
 
 import style from "./page.module.css";
 import NavigateButton from "@/components/home/navigate-botton";
+import Footer from "@/components/footer/footer";
 
 export default function Home() {
   return (
-    <ScrollHandler className={style.home_container}>
+    <main className={style.home_container}>
       <NavigateButton />
       <WallPaper />
       <HomeAbout />
       <ProductsList />
-    </ScrollHandler>
+    </main>
   );
 }

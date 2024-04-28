@@ -33,6 +33,10 @@ const UseFnContext = createContext({
   setNavigateScrollHeight: () => {},
   type: "",
   setType: () => {},
+  navSlideOut: false,
+  setNavSlideOut: () => {},
+  order: false,
+  setOrder: () => {},
 });
 
 export const useFn = () => {
@@ -53,6 +57,8 @@ export const UseFnProvider = (props) => {
   const [messageSlideDown, setMessageSlideDown] = useState(false);
   const [clickDisable, setClickDisable] = useState(false);
   const [navigateScrollHeight, setNavigateScrollHeight] = useState(null);
+  const [navSlideOut, setNavSlideOut] = useState(false);
+  const [order, setOrder] = useState(false);
   const [type, setType] = useState("所有商品");
 
   const currHeight = useRef();
@@ -92,6 +98,10 @@ export const UseFnProvider = (props) => {
         setNavigateScrollHeight,
         type,
         setType,
+        navSlideOut,
+        setNavSlideOut,
+        order,
+        setOrder,
       }}
     >
       {props.children}

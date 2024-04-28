@@ -1,0 +1,31 @@
+.container {
+  position: relative;
+  height: 22vh;
+  background-color: rgb(var(--main-color));
+  box-shadow: 0px 0px 10px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(var(--match-color));
+}
+
+.info {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  gap: 1.3rem;
+  flex-wrap: wrap;
+}
+
+.nav_link {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  gap: 1.3rem;
+  flex-wrap: wrap;
+}
+
+.copyright {
+  position: absolute;
+  bottom: 0.5rem;
+}

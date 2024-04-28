@@ -2,6 +2,9 @@ import Header from "@/components/header/header";
 import { UseFnProvider } from "@/context/cart-data-context";
 
 import "./globals.css";
+import Footer from "@/components/footer/footer";
+import ScrollHandler from "@/components/home/scroll-handler";
+import NavSlider from "@/components/header/nav-slider";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,8 +16,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <UseFnProvider>
-          <Header />
-          {children}
+          <ScrollHandler className="scroll_container">
+            <Header />
+            <NavSlider />
+            {children}
+            <Footer />
+          </ScrollHandler>
         </UseFnProvider>
       </body>
     </html>

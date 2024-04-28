@@ -20,7 +20,7 @@ const OrderCheckItem = () => {
               <Image src={d.image} alt={d.name} fill sizes="width:5rem" />
             </div>
             <div>
-              <h3>{d.name}</h3>
+              <h3 className={style.order_check_title}>{d.name}</h3>
               <p>單價：{d.price}</p>
               <p>數量：{d.count}</p>
               <p>總額：{d.price * d.count}</p>

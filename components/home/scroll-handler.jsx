@@ -13,12 +13,17 @@ const ScrollHandler = (props) => {
   } = useFn();
 
   useEffect(() => {
-    const handleScroll = () => {};
+    if (!currHeight.current) return;
+    const handleScroll = () => {
+      if (navigateScrollHeight) {
+        currHeight.current.scrollTop = navigateScrollHeight;
+      }
+    };
 
     currHeight.current.addEventListener("scroll", handleScroll);
 
-    currHeight.current.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => currHeight.current.removeEventListener("scroll", handleScroll);
+  }, [navigateScrollHeight]);
 
   const scrollHandler = (e) => {
     if (navigateScrollHeight) {
@@ -31,9 +36,9 @@ const ScrollHandler = (props) => {
   };
 
   return (
-    <main className={props.className} onScroll={scrollHandler} ref={currHeight}>
+    <div className={props.className} onScroll={scrollHandler} ref={currHeight}>
       {props.children}
-    </main>
+    </div>
   );
 };
 
