@@ -1,12 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import { useFn } from "@/context/cart-data-context";
 import OrderCheck from "@/components/payment-page/order-check";
 import OrderConfirm from "@/components/payment-page/order-confirm";
+import BackDrop from "@/components/ui-elements/back-drop";
 
 import style from "./page.module.css";
-import { useEffect } from "react";
 
 const Payment = () => {
   const { order, cartData } = useFn();
@@ -21,6 +22,7 @@ const Payment = () => {
     <main className={style.container}>
       <OrderCheck />
       {order && <OrderConfirm />}
+      {<BackDrop className={`${style.backdrop} ${order ? style.show : ""} `} />}
     </main>
   );
 };

@@ -113,7 +113,7 @@ const Header = (props) => {
       </svg>
 
       <BackDrop
-        className={`${showCart ? style.slider_active : ""}`}
+        className={`${style.backdrop} ${showCart ? style.slider_active : ""}`}
         onClick={cartCloseHandler}
       />
       <CartSlider

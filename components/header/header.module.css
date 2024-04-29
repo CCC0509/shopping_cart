@@ -115,6 +115,10 @@
   background-color: rgb(var(--match-color));
   color: rgb(var(--main-color));
 }
+.backdrop {
+  transform: translateX(100%);
+  transition: transform 0.5s linear;
+}
 
 .slider_active {
   transform: translateX(0);
